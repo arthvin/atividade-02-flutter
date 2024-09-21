@@ -1,25 +1,21 @@
-// lib/main.dart
-
 import 'banking.dart';
 
 void main() {
-  // Criando uma conta corrente e realizando operações
-  final checkingAccount = CheckingAccount('Checking Account', 100.0);
-  print('Initial Checking Account Balance: ${checkingAccount.balance}');
+  final contaCorrente = ContaCorrente('Conta Corrente', 100.0);
+  print('Saldo Inicial da Conta Corrente: ${contaCorrente.saldo}');
   
-  checkingAccount.deposit(50.0);
-  print('After Deposit: ${checkingAccount.balance}');
+  contaCorrente.depositar(50.0);
+  print('Após Depósito: ${contaCorrente.saldo}');
   
-  checkingAccount.withdraw(30.0);
-  print('After Withdrawal: ${checkingAccount.balance}');
+  contaCorrente.sacar(30.0);
+  print('Após Saque: ${contaCorrente.saldo}');
 
-  // Criando uma conta poupança e realizando operações
-  final savingsAccount = SavingsAccount('Savings Account', 100);
-  print('Initial Savings Account Balance: ${savingsAccount.balance}');
+  final contaPoupanca = ContaPoupanca('Conta Poupança', 100);
+  print('Saldo Inicial da Conta Poupança: ${contaPoupanca.saldo}');
   
-  savingsAccount.deposit(50);
-  print('After Deposit: ${savingsAccount.balance}');
+  contaPoupanca.depositar(50);
+  print('Após Depósito: ${contaPoupanca.saldo}');
   
-  savingsAccount.withdraw(30);
-  print('After Withdrawal: ${savingsAccount.balance}');
+  contaPoupanca.sacar(30);
+  print('Após Saque: ${contaPoupanca.saldo}');
 }

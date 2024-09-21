@@ -70,125 +70,125 @@ define('zapp_user_main', ['dart_sdk'], (function load__zapp_user_main(dart_sdk) 
     });
   };
   main.main = function main$0() {
-    let checkingAccount = new banking.CheckingAccount.new("Checking Account", 100);
-    core.print("Initial Checking Account Balance: " + dart.str(checkingAccount.balance));
-    checkingAccount.deposit(50);
-    core.print("After Deposit: " + dart.str(checkingAccount.balance));
-    checkingAccount.withdraw(30);
-    core.print("After Withdrawal: " + dart.str(checkingAccount.balance));
-    let savingsAccount = new banking.SavingsAccount.new("Savings Account", 100);
-    core.print("Initial Savings Account Balance: " + dart.str(savingsAccount.balance));
-    savingsAccount.deposit(50);
-    core.print("After Deposit: " + dart.str(savingsAccount.balance));
-    savingsAccount.withdraw(30);
-    core.print("After Withdrawal: " + dart.str(savingsAccount.balance));
+    let contaCorrente = new banking.ContaCorrente.new("Conta Corrente", 100);
+    core.print("Saldo Inicial da Conta Corrente: " + dart.str(contaCorrente.saldo));
+    contaCorrente.depositar(50);
+    core.print("Após Depósito: " + dart.str(contaCorrente.saldo));
+    contaCorrente.sacar(30);
+    core.print("Após Saque: " + dart.str(contaCorrente.saldo));
+    let contaPoupanca = new banking.ContaPoupanca.new("Conta Poupança", 100);
+    core.print("Saldo Inicial da Conta Poupança: " + dart.str(contaPoupanca.saldo));
+    contaPoupanca.depositar(50);
+    core.print("Após Depósito: " + dart.str(contaPoupanca.saldo));
+    contaPoupanca.sacar(30);
+    core.print("Após Saque: " + dart.str(contaPoupanca.saldo));
   };
   web_plugin_registrant.registerPlugins = function registerPlugins() {
   };
-  var accountName$ = dart.privateName(banking, "Account.accountName");
-  var balance$ = dart.privateName(banking, "Account.balance");
-  var _add = dart.privateName(banking, "_add");
-  var _subtract = dart.privateName(banking, "_subtract");
-  const _is_Account_default = Symbol('_is_Account_default');
-  banking.Account$ = dart.generic(T => {
-    class Account extends core.Object {
-      get accountName() {
-        return this[accountName$];
+  var nomeConta$ = dart.privateName(banking, "Conta.nomeConta");
+  var saldo$ = dart.privateName(banking, "Conta.saldo");
+  var _adicionar = dart.privateName(banking, "_adicionar");
+  var _subtrair = dart.privateName(banking, "_subtrair");
+  const _is_Conta_default = Symbol('_is_Conta_default');
+  banking.Conta$ = dart.generic(T => {
+    class Conta extends core.Object {
+      get nomeConta() {
+        return this[nomeConta$];
       }
-      set accountName(value) {
-        this[accountName$] = value;
+      set nomeConta(value) {
+        this[nomeConta$] = value;
       }
-      get balance() {
-        return this[balance$];
+      get saldo() {
+        return this[saldo$];
       }
-      set balance(value) {
-        this[balance$] = T.as(value);
+      set saldo(value) {
+        this[saldo$] = T.as(value);
       }
-      deposit(amount) {
-        T.as(amount);
-        this.balance = this[_add](this.balance, amount);
+      depositar(valor) {
+        T.as(valor);
+        this.saldo = this[_adicionar](this.saldo, valor);
       }
-      withdraw(amount) {
-        T.as(amount);
-        this.balance = this[_subtract](this.balance, amount);
+      sacar(valor) {
+        T.as(valor);
+        this.saldo = this[_subtrair](this.saldo, valor);
       }
     }
-    (Account.new = function(accountName, balance) {
-      this[accountName$] = accountName;
-      this[balance$] = balance;
+    (Conta.new = function(nomeConta, saldo) {
+      this[nomeConta$] = nomeConta;
+      this[saldo$] = saldo;
       ;
-    }).prototype = Account.prototype;
-    dart.addTypeTests(Account);
-    Account.prototype[_is_Account_default] = true;
-    dart.addTypeCaches(Account);
-    dart.setMethodSignature(Account, () => ({
-      __proto__: dart.getMethods(Account.__proto__),
-      deposit: dart.fnType(dart.void, [dart.nullable(core.Object)]),
-      withdraw: dart.fnType(dart.void, [dart.nullable(core.Object)])
+    }).prototype = Conta.prototype;
+    dart.addTypeTests(Conta);
+    Conta.prototype[_is_Conta_default] = true;
+    dart.addTypeCaches(Conta);
+    dart.setMethodSignature(Conta, () => ({
+      __proto__: dart.getMethods(Conta.__proto__),
+      depositar: dart.fnType(dart.void, [dart.nullable(core.Object)]),
+      sacar: dart.fnType(dart.void, [dart.nullable(core.Object)])
     }));
-    dart.setLibraryUri(Account, I[0]);
-    dart.setFieldSignature(Account, () => ({
-      __proto__: dart.getFields(Account.__proto__),
-      accountName: dart.fieldType(core.String),
-      balance: dart.fieldType(T)
+    dart.setLibraryUri(Conta, I[0]);
+    dart.setFieldSignature(Conta, () => ({
+      __proto__: dart.getFields(Conta.__proto__),
+      nomeConta: dart.fieldType(core.String),
+      saldo: dart.fieldType(T)
     }));
-    return Account;
+    return Conta;
   });
-  banking.Account = banking.Account$();
-  dart.addTypeTests(banking.Account, _is_Account_default);
-  banking.CheckingAccount = class CheckingAccount extends banking.Account$(core.double) {
-    static ['_#new#tearOff'](accountName, balance) {
-      return new banking.CheckingAccount.new(accountName, balance);
+  banking.Conta = banking.Conta$();
+  dart.addTypeTests(banking.Conta, _is_Conta_default);
+  banking.ContaCorrente = class ContaCorrente extends banking.Conta$(core.double) {
+    static ['_#new#tearOff'](nomeConta, saldo) {
+      return new banking.ContaCorrente.new(nomeConta, saldo);
     }
-    [_add](a, b) {
+    [_adicionar](a, b) {
       return a + b;
     }
-    [_subtract](a, b) {
+    [_subtrair](a, b) {
       return a - b;
     }
   };
-  (banking.CheckingAccount.new = function(accountName, balance) {
-    banking.CheckingAccount.__proto__.new.call(this, accountName, balance);
+  (banking.ContaCorrente.new = function(nomeConta, saldo) {
+    banking.ContaCorrente.__proto__.new.call(this, nomeConta, saldo);
     ;
-  }).prototype = banking.CheckingAccount.prototype;
-  dart.addTypeTests(banking.CheckingAccount);
-  dart.addTypeCaches(banking.CheckingAccount);
-  dart.setMethodSignature(banking.CheckingAccount, () => ({
-    __proto__: dart.getMethods(banking.CheckingAccount.__proto__),
-    [_add]: dart.fnType(core.double, [core.double, core.double]),
-    [_subtract]: dart.fnType(core.double, [core.double, core.double])
+  }).prototype = banking.ContaCorrente.prototype;
+  dart.addTypeTests(banking.ContaCorrente);
+  dart.addTypeCaches(banking.ContaCorrente);
+  dart.setMethodSignature(banking.ContaCorrente, () => ({
+    __proto__: dart.getMethods(banking.ContaCorrente.__proto__),
+    [_adicionar]: dart.fnType(core.double, [core.double, core.double]),
+    [_subtrair]: dart.fnType(core.double, [core.double, core.double])
   }));
-  dart.setLibraryUri(banking.CheckingAccount, I[0]);
-  banking.SavingsAccount = class SavingsAccount extends banking.Account$(core.int) {
-    static ['_#new#tearOff'](accountName, balance) {
-      return new banking.SavingsAccount.new(accountName, balance);
+  dart.setLibraryUri(banking.ContaCorrente, I[0]);
+  banking.ContaPoupanca = class ContaPoupanca extends banking.Conta$(core.int) {
+    static ['_#new#tearOff'](nomeConta, saldo) {
+      return new banking.ContaPoupanca.new(nomeConta, saldo);
     }
-    [_add](a, b) {
+    [_adicionar](a, b) {
       return a + b;
     }
-    [_subtract](a, b) {
+    [_subtrair](a, b) {
       return a - b;
     }
   };
-  (banking.SavingsAccount.new = function(accountName, balance) {
-    banking.SavingsAccount.__proto__.new.call(this, accountName, balance);
+  (banking.ContaPoupanca.new = function(nomeConta, saldo) {
+    banking.ContaPoupanca.__proto__.new.call(this, nomeConta, saldo);
     ;
-  }).prototype = banking.SavingsAccount.prototype;
-  dart.addTypeTests(banking.SavingsAccount);
-  dart.addTypeCaches(banking.SavingsAccount);
-  dart.setMethodSignature(banking.SavingsAccount, () => ({
-    __proto__: dart.getMethods(banking.SavingsAccount.__proto__),
-    [_add]: dart.fnType(core.int, [core.int, core.int]),
-    [_subtract]: dart.fnType(core.int, [core.int, core.int])
+  }).prototype = banking.ContaPoupanca.prototype;
+  dart.addTypeTests(banking.ContaPoupanca);
+  dart.addTypeCaches(banking.ContaPoupanca);
+  dart.setMethodSignature(banking.ContaPoupanca, () => ({
+    __proto__: dart.getMethods(banking.ContaPoupanca.__proto__),
+    [_adicionar]: dart.fnType(core.int, [core.int, core.int]),
+    [_subtrair]: dart.fnType(core.int, [core.int, core.int])
   }));
-  dart.setLibraryUri(banking.SavingsAccount, I[0]);
+  dart.setLibraryUri(banking.ContaPoupanca, I[0]);
   dart.trackLibraries("zapp_user_main", {
     "file:///zapp/project/.zapp_entry.dart": $46zapp_entry,
     "file:///zapp/project/lib/main.dart": main,
     "file:///zapp/project/.dart_tool/dartpad/web_plugin_registrant.dart": web_plugin_registrant,
     "file:///zapp/project/lib/banking.dart": banking
   }, {
-  }, '{"version":3,"sourceRoot":"","sources":["/zapp/project/.zapp_entry.dart","/zapp/project/lib/main.dart","/zapp/project/.dart_tool/dartpad/web_plugin_registrant.dart","/zapp/project/lib/banking.dart"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AA2CI,IA1BF,iCAAgB;AACd,UAAoB,6BAGD;AAF8B,QAA9B,AAAkB,6BAElB,eAF2B;;AAEL,QAAF,CAApB;;AAEnB,UAAO,AAAQ,uBAAY;AAKvB,QAJK,AAAqC,qBAA7B,qCAAuB,uBAAW,QAAC;AAG9C,UAFC,AAAQ,sBAAW,2BAA2B,CAC/C;;;wBAIL,SAAC,GAAG;AACL,UAAO,AAAQ,uBAAY;AAIvB,QAHC,AAAQ,sBAAW,wBAAwB,CAC5C,AAAE,CAAD,eACD,AAAW,UAAD;;2DAGM,yCACb,SAAC,MAAM,QAAQ,MAAM;AAC1B,cAAO,AAAQ,uBAAY;AAC4B,YAAlD,AAAQ,sBAAW,wBAAwB,CAAC,IAAI;;;EAI3D;;AAEiB;AAQd,MAPD,MAAS,gCACC;AACS,UAAf;6CAEe;AACmB,UAAjB;;IAGvB;;;ACjDQ,0BAAkB,gCAAgB,oBAAoB;AACS,IAArE,WAAM,AAA8D,gDAAzB,AAAgB,eAAD;AAE7B,IAA7B,AAAgB,eAAD,SAAS;AAC0B,IAAlD,WAAM,AAA2C,6BAAzB,AAAgB,eAAD;AAET,IAA9B,AAAgB,eAAD,UAAU;AAC4B,IAArD,WAAM,AAA8C,gCAAzB,AAAgB,eAAD;AAGpC,yBAAiB,+BAAe,mBAAmB;AACU,IAAnE,WAAM,AAA4D,+CAAxB,AAAe,cAAD;AAE9B,IAA1B,AAAe,cAAD,SAAS;AAC0B,IAAjD,WAAM,AAA0C,6BAAxB,AAAe,cAAD;AAEX,IAA3B,AAAe,cAAD,UAAU;AAC4B,IAApD,WAAM,AAA6C,gCAAxB,AAAe,cAAD;EAC3C;;ECjBwB;;;;;;;;MCHf;;;;;;MACL;;;;;;cAIa;;AACkB,QAA/B,eAAU,WAAK,cAAS,MAAM;MAChC;eAEgB;;AACsB,QAApC,eAAU,gBAAU,cAAS,MAAM;MACrC;;4BARa,aAAkB;MAAlB;MAAkB;;IAAQ;;;;;;;;;;;;;;;;;;;;;;;WAmBpB,GAAU;AAAM,YAAA,AAAE,EAAD,GAAG,CAAC;;gBAGhB,GAAU;AAAM,YAAA,AAAE,EAAD,GAAG,CAAC;;;0CANtB,aAAoB;AAAW,qDAAM,WAAW,EAAE,OAAO;;EAAC;;;;;;;;;;;;;WAcpE,GAAO;AAAM,YAAA,AAAE,EAAD,GAAG,CAAC;;gBAGb,GAAO;AAAM,YAAA,AAAE,EAAD,GAAG,CAAC;;;yCANd,aAAiB;AAAW,oDAAM,WAAW,EAAE,OAAO;;EAAC","file":"main.js"}');
+  }, '{"version":3,"sourceRoot":"","sources":["/zapp/project/.zapp_entry.dart","/zapp/project/lib/main.dart","/zapp/project/.dart_tool/dartpad/web_plugin_registrant.dart","/zapp/project/lib/banking.dart"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AA2CI,IA1BF,iCAAgB;AACd,UAAoB,6BAGD;AAF8B,QAA9B,AAAkB,6BAElB,eAF2B;;AAEL,QAAF,CAApB;;AAEnB,UAAO,AAAQ,uBAAY;AAKvB,QAJK,AAAqC,qBAA7B,qCAAuB,uBAAW,QAAC;AAG9C,UAFC,AAAQ,sBAAW,2BAA2B,CAC/C;;;wBAIL,SAAC,GAAG;AACL,UAAO,AAAQ,uBAAY;AAIvB,QAHC,AAAQ,sBAAW,wBAAwB,CAC5C,AAAE,CAAD,eACD,AAAW,UAAD;;2DAGM,yCACb,SAAC,MAAM,QAAQ,MAAM;AAC1B,cAAO,AAAQ,uBAAY;AAC4B,YAAlD,AAAQ,sBAAW,wBAAwB,CAAC,IAAI;;;EAI3D;;AAEiB;AAQd,MAPD,MAAS,gCACC;AACS,UAAf;6CAEe;AACmB,UAAjB;;IAGvB;;;ACpDQ,wBAAgB,8BAAc,kBAAkB;AACU,IAAhE,WAAM,AAAyD,+CAArB,AAAc,aAAD;AAE1B,IAA7B,AAAc,aAAD,WAAW;AACsB,IAA9C,WAAM,AAAuC,6BAArB,AAAc,aAAD;AAEZ,IAAzB,AAAc,aAAD,OAAO;AACuB,IAA3C,WAAM,AAAoC,0BAArB,AAAc,aAAD;AAE5B,wBAAgB,8BAAc,kBAAkB;AACU,IAAhE,WAAM,AAAyD,+CAArB,AAAc,aAAD;AAE5B,IAA3B,AAAc,aAAD,WAAW;AACsB,IAA9C,WAAM,AAAuC,6BAArB,AAAc,aAAD;AAEd,IAAvB,AAAc,aAAD,OAAO;AACuB,IAA3C,WAAM,AAAoC,0BAArB,AAAc,aAAD;EACpC;;ECbwB;;;;;;;;MCNf;;;;;;MACL;;;;;;gBAIe;;AACiB,QAAhC,aAAQ,iBAAW,YAAO,KAAK;MACjC;YAEa;;AACoB,QAA/B,aAAQ,gBAAU,YAAO,KAAK;MAChC;;0BARW,WAAgB;MAAhB;MAAgB;;IAAM;;;;;;;;;;;;;;;;;;;;;;;iBAkBR,GAAU;AAAM,YAAA,AAAE,EAAD,GAAG,CAAC;;gBAGtB,GAAU;AAAM,YAAA,AAAE,EAAD,GAAG,CAAC;;;wCANxB,WAAkB;AAAS,mDAAM,SAAS,EAAE,KAAK;;EAAC;;;;;;;;;;;;;iBAapD,GAAO;AAAM,YAAA,AAAE,EAAD,GAAG,CAAC;;gBAGnB,GAAO;AAAM,YAAA,AAAE,EAAD,GAAG,CAAC;;;wCANf,WAAe;AAAS,mDAAM,SAAS,EAAE,KAAK;;EAAC","file":"main.js"}');
   // Exports:
   return {
     zapp__project__$46zapp_entry: $46zapp_entry,
